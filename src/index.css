@@ -103,13 +103,21 @@
   }
 
   .text-glow-rose {
+    color: hsl(var(--glow-rose));
     text-shadow: 0 0 30px hsl(var(--glow-rose) / 0.6),
                  0 0 60px hsl(var(--glow-rose) / 0.4);
   }
 
   .text-glow-teal {
+    color: hsl(var(--glow-teal));
     text-shadow: 0 0 30px hsl(var(--glow-teal) / 0.6),
                  0 0 60px hsl(var(--glow-teal) / 0.4);
+  }
+
+  .text-glow-violet {
+    color: hsl(var(--glow-violet));
+    text-shadow: 0 0 30px hsl(var(--glow-violet) / 0.6),
+                 0 0 60px hsl(var(--glow-violet) / 0.4);
   }
 
   .glow-orb {
