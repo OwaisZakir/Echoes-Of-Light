@@ -11,6 +11,7 @@ import GlitchText from '@/components/GlitchText';
 import LightTrailCanvas from '@/components/LightTrailCanvas';
 import AuroraParticles from '@/components/AuroraParticles';
 import RippleEffect from '@/components/RippleEffect';
+import WebGLDistortion from '@/components/WebGLDistortion';
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,25 +57,28 @@ const Index = () => {
         />
       </div>
 
-      {/* === LAYER 1: Liquid Blobs === */}
+      {/* === LAYER 1: WebGL Shader Distortion === */}
+      <WebGLDistortion />
+
+      {/* === LAYER 2: Liquid Blobs === */}
       <LiquidBlobs />
 
-      {/* === LAYER 2: Particle Vortex === */}
+      {/* === LAYER 3: Particle Vortex === */}
       <ParticleVortex />
 
-      {/* === LAYER 3: Fluid Lines === */}
+      {/* === LAYER 4: Fluid Lines === */}
       <FluidDistortion />
 
-      {/* === LAYER 4: Aurora (Idle) === */}
+      {/* === LAYER 5: Aurora (Idle) === */}
       <AuroraParticles />
 
-      {/* === LAYER 5: Light Trails === */}
+      {/* === LAYER 6: Light Trails === */}
       <LightTrailCanvas />
 
-      {/* === LAYER 6: Click Ripples === */}
+      {/* === LAYER 7: Click Ripples === */}
       <RippleEffect />
 
-      {/* === LAYER 7: Liquid Cursor === */}
+      {/* === LAYER 8: Liquid Cursor === */}
       <LiquidCursor />
 
       {/* === HERO SECTION === */}
@@ -350,7 +354,7 @@ const Index = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              An experiment in presence · 2024
+              Created by Owais Zakir · 2024
             </motion.p>
 
             <motion.div
