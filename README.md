@@ -267,3 +267,7 @@ MIT License — feel free to use, modify, and distribute.
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-Eren%20Jeager-FF69B4?style=for-the-badge" alt="Made with Eren Jeager" />
 </p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with-Shaikh%20Muhammad%20Raheem-FF69B4?style=for-the-badge" alt="Made with Shaikh Muhammad Raheem" />
+</p>
