@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="#-live-demo">Live Demo</a> •
+  <a href="https://the-echoes-of-light.vercel.app/-live-demo">Live Demo</a> •
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
   <a href="#-tech-stack">Tech Stack</a> •
