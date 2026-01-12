@@ -1,105 +1,79 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback, memo } from 'react';
 
-const FluidDistortion = () => {
+/**
+ * Optimized fluid wave lines with reduced complexity
+ */
+const FluidDistortion = memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
-  const mouseRef = useRef({ x: 0, y: 0, prevX: 0, prevY: 0 });
-  const velocityRef = useRef({ x: 0, y: 0 });
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const timeRef = useRef(0);
+  const lastTimeRef = useRef(0);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    mouseRef.current = { x: e.clientX, y: e.clientY };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    let time = 0;
-    const ripples: Array<{ x: number; y: number; radius: number; strength: number; life: number }> = [];
-
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.prevX = mouseRef.current.x;
-      mouseRef.current.prevY = mouseRef.current.y;
-      mouseRef.current.x = e.clientX;
-      mouseRef.current.y = e.clientY;
-      
-      velocityRef.current.x = mouseRef.current.x - mouseRef.current.prevX;
-      velocityRef.current.y = mouseRef.current.y - mouseRef.current.prevY;
-
-      // Create ripples based on velocity
-      const speed = Math.sqrt(velocityRef.current.x ** 2 + velocityRef.current.y ** 2);
-      if (speed > 5 && ripples.length < 20) {
-        ripples.push({
-          x: e.clientX,
-          y: e.clientY,
-          radius: 0,
-          strength: Math.min(speed * 0.5, 30),
-          life: 1,
-        });
-      }
+      const dpr = Math.min(window.devicePixelRatio, 1.5);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
     };
 
     resize();
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    const animate = () => {
-      time += 0.005;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const animate = (time: number) => {
+      // Throttle to ~24fps
+      if (time - lastTimeRef.current < 42) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastTimeRef.current = time;
+      timeRef.current += 0.005;
 
-      // Draw flowing lines
-      const lines = 40;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      ctx.clearRect(0, 0, width, height);
+
+      // Reduced to 20 lines
+      const lines = 20;
       for (let i = 0; i < lines; i++) {
         const progress = i / lines;
-        const y = canvas.height * progress;
+        const y = height * progress;
         
         ctx.beginPath();
         ctx.moveTo(0, y);
 
-        for (let x = 0; x <= canvas.width; x += 20) {
-          // Base wave
-          let offsetY = Math.sin(x * 0.005 + time + progress * Math.PI) * 20;
-          offsetY += Math.sin(x * 0.003 - time * 0.7) * 15;
+        // Larger step size for fewer calculations
+        for (let x = 0; x <= width; x += 40) {
+          let offsetY = Math.sin(x * 0.004 + timeRef.current + progress * Math.PI) * 15;
+          offsetY += Math.sin(x * 0.002 - timeRef.current * 0.6) * 10;
 
-          // Mouse influence
           const dx = x - mouseRef.current.x;
           const dy = y - mouseRef.current.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const influence = Math.max(0, 1 - dist / 300);
-          offsetY += influence * 50 * Math.sin(time * 3);
-
-          // Ripple influence
-          ripples.forEach(ripple => {
-            const rdx = x - ripple.x;
-            const rdy = y - ripple.y;
-            const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
-            if (rdist < ripple.radius + 50 && rdist > ripple.radius - 50) {
-              const rippleInfluence = (1 - Math.abs(rdist - ripple.radius) / 50) * ripple.life;
-              offsetY += Math.sin(rdist * 0.1) * ripple.strength * rippleInfluence;
-            }
-          });
+          const influence = Math.max(0, 1 - dist / 350);
+          offsetY += influence * 35 * Math.sin(timeRef.current * 2.5);
 
           ctx.lineTo(x, y + offsetY);
         }
 
-        // Gradient stroke
-        const hue = 170 + progress * 100;
-        ctx.strokeStyle = `hsla(${hue}, 60%, 55%, ${0.03 + progress * 0.02})`;
-        ctx.lineWidth = 1.5;
+        const hue = 170 + progress * 80;
+        ctx.strokeStyle = `hsla(${hue}, 55%, 55%, ${0.02 + progress * 0.015})`;
+        ctx.lineWidth = 1;
         ctx.stroke();
-      }
-
-      // Update ripples
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        ripples[i].radius += 8;
-        ripples[i].life -= 0.015;
-        if (ripples[i].life <= 0) {
-          ripples.splice(i, 1);
-        }
       }
 
       animationRef.current = requestAnimationFrame(animate);
@@ -112,15 +86,18 @@ const FluidDistortion = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-[3]"
       style={{ mixBlendMode: 'screen' }}
+      aria-hidden="true"
     />
   );
-};
+});
+
+FluidDistortion.displayName = 'FluidDistortion';
 
 export default FluidDistortion;
