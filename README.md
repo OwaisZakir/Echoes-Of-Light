@@ -9,14 +9,14 @@
 <p align="center">
   <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Three.js-r160-000000?style=flat-square&logo=three.js&logoColor=white" alt="Three.js" />
   <img src="https://img.shields.io/badge/Framer_Motion-11.x-FF0066?style=flat-square&logo=framer&logoColor=white" alt="Framer Motion" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Vite-5.x-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Canvas_API-Optimized-FF6B6B?style=flat-square" alt="Canvas API" />
 </p>
 
 <p align="center">
-  <strong>🌌 An experimental, Awwwards-level interactive experience where your presence paints the digital canvas with light</strong>
+  <strong>🌌 An Awwwards-level interactive experience where your presence paints the digital canvas with light</strong>
 </p>
 
 <p align="center">
@@ -24,39 +24,37 @@
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
   <a href="#-tech-stack">Tech Stack</a> •
-  <a href="#-interactions">Interactions</a>
+  <a href="#-performance">Performance</a>
 </p>
 
 ---
 
 ## 🎯 About
 
-**ECHOES OF LIGHT** is a concept-level, experimental website that transforms user presence into art. Every cursor movement, scroll, click, and moment of stillness creates unique visual responses—from liquid light trails to particle vortexes, from rippling distortions to aurora-like effects.
+**ECHOES OF LIGHT** is an experimental, concept-level website that transforms user presence into art. Every cursor movement, scroll, click, and moment of stillness creates unique visual responses—from liquid light trails to particle vortexes, from rippling distortions to aurora-like effects.
 
 This project explores the boundaries between user interface and digital art, creating a mesmerizing experience that feels alive and responds uniquely to each visitor.
 
 > *"Your presence becomes art. Every gesture leaves traces of luminescence."*
 
+**Created by Owais Zakir** | © 2024-Present
+
 ---
 
 ## ✨ Features
 
-### 🌊 WebGL Shader Effects
-- **Liquid Distortion** — Real-time water-like shader that warps the entire page based on cursor movement
-- **Chromatic Aberration** — Dynamic RGB splitting that intensifies with movement
-- **Ripple Propagation** — Click-triggered waves that expand through the shader
-
-### 🎨 Multi-Layer Visual System
+### 🎨 Multi-Layer Visual System (Optimized)
 | Layer | Effect | Interaction |
 |-------|--------|-------------|
-| 0 | Deep Space Gradient | Static ambient |
-| 1 | Liquid Metaballs | Mouse attraction |
-| 2 | Particle Vortex | Galaxy spiral following cursor |
-| 3 | Fluid Wave Lines | Velocity-reactive flow |
-| 4 | Aurora Particles | Idle-triggered emergence |
-| 5 | Light Trails | Cursor painting |
-| 6 | Click Ripples | Tap/click bloom |
-| 7 | Liquid Cursor | Multi-layered glow cursor |
+| 0 | Deep Space Gradient | Ambient backdrop |
+| 1 | Liquid Glow Effect | Mouse-following glow |
+| 2 | Liquid Metaballs | Organic blob attraction |
+| 3 | Particle Vortex | Galaxy spiral following cursor |
+| 4 | Fluid Wave Lines | Velocity-reactive flow |
+| 5 | Aurora Particles | Idle-triggered emergence |
+| 6 | Light Trails | Cursor painting |
+| 7 | Click Ripples | Tap/click bloom |
+| 8 | Liquid Cursor | Multi-layered glow cursor |
 
 ### 🖱️ Interaction Modes
 - **Movement** — Creates flowing light trails and attracts particles
@@ -65,12 +63,20 @@ This project explores the boundaries between user interface and digital art, cre
 - **Scroll** — Triggers parallax transformations and wave effects
 - **Idle** — Awakens dormant aurora particles
 
-### 🎭 Design Elements
-- Organic, grid-free layout philosophy
-- Glass morphism cards with depth
-- Gradient text animations
-- Magnetic interactive buttons
-- Ink-reveal scroll animations
+### ⚡ Performance Optimized
+- **No WebGL dependencies** — Pure Canvas 2D API for maximum compatibility
+- **Throttled animations** — 24-30fps target for smooth experience without battery drain
+- **Device pixel ratio optimization** — Capped at 1.5x for performance
+- **Memoized components** — React.memo for all canvas components
+- **Passive event listeners** — Non-blocking mouse tracking
+
+### 🔍 Full SEO Implementation
+- Semantic HTML5 structure with proper landmarks
+- Dynamic meta tags with react-helmet-async
+- JSON-LD structured data
+- Open Graph & Twitter Card meta
+- Accessible ARIA labels
+- Dynamic year in copyright
 
 ---
 
@@ -88,6 +94,9 @@ npm install
 
 # Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
 ---
@@ -95,26 +104,26 @@ npm run dev
 ## 🛠️ Tech Stack
 
 ### Core Framework
-| Technology | Purpose |
-|------------|---------|
-| **React 18** | UI Component Library |
-| **TypeScript** | Type-Safe Development |
-| **Vite** | Build Tool & Dev Server |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **React** | 18.3.1 | UI Component Library |
+| **TypeScript** | 5.x | Type-Safe Development |
+| **Vite** | 5.x | Build Tool & Dev Server |
 
 ### Styling & Animation
 | Technology | Purpose |
 |------------|---------|
 | **Tailwind CSS** | Utility-First Styling |
 | **Framer Motion** | Declarative Animations |
+| **Canvas 2D API** | High-Performance Graphics |
 | **Custom CSS** | Glow Effects & Gradients |
 
-### 3D & WebGL
+### Performance & SEO
 | Technology | Purpose |
 |------------|---------|
-| **Three.js** | WebGL Rendering |
-| **React Three Fiber** | React Renderer for Three.js |
-| **React Three Drei** | Useful Helpers |
-| **Custom GLSL Shaders** | Liquid Distortion Effects |
+| **react-helmet-async** | Dynamic Meta Tags |
+| **React.memo** | Component Memoization |
+| **requestAnimationFrame** | Optimized Animation Loop |
 
 ### UI Components
 | Technology | Purpose |
@@ -122,6 +131,74 @@ npm run dev
 | **shadcn/ui** | Accessible Components |
 | **Radix UI** | Headless Primitives |
 | **Lucide React** | Icon System |
+
+---
+
+## ⚡ Performance
+
+### Optimization Techniques Used
+
+```
+✅ Canvas 2D instead of WebGL — Better compatibility, no shader overhead
+✅ Throttled to 24-30fps — Smooth visuals without battery drain  
+✅ Device Pixel Ratio capped at 1.5x — Prevents excessive canvas size
+✅ Passive event listeners — Non-blocking scroll & mouse events
+✅ React.memo on all canvas components — Prevents unnecessary re-renders
+✅ useCallback for event handlers — Stable function references
+✅ useMemo for static data — Prevents recalculation
+✅ Reduced particle counts — Fewer objects, same visual impact
+```
+
+### Lighthouse Scores Target
+| Metric | Target |
+|--------|--------|
+| Performance | 90+ |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── AuroraParticles.tsx      # Idle-triggered floating particles
+│   ├── BackgroundAurora.tsx     # Ambient background effects
+│   ├── FluidDistortion.tsx      # Canvas-based wave lines (optimized)
+│   ├── FloatingElement.tsx      # Generic float animation wrapper
+│   ├── GlitchText.tsx           # Subtle text glitch effect
+│   ├── GlowingText.tsx          # Stroke-reveal text animation
+│   ├── InkReveal.tsx            # Scroll-triggered ink wash reveal
+│   ├── LightTrailCanvas.tsx     # Cursor light trail painter
+│   ├── LiquidBlobs.tsx          # Organic metaball shapes (optimized)
+│   ├── LiquidCursor.tsx         # Multi-layered custom cursor
+│   ├── MagneticButton.tsx       # Cursor-attracted buttons
+│   ├── MorphingText.tsx         # Character-level hover effects
+│   ├── ParticleVortex.tsx       # Galaxy spiral particles (optimized)
+│   ├── RippleEffect.tsx         # Click bloom effect
+│   ├── ScrollWaves.tsx          # Scroll-driven light waves
+│   └── WebGLDistortion.tsx      # Lightweight liquid glow (optimized)
+├── hooks/
+│   ├── useMousePosition.ts      # Global mouse tracking
+│   └── useIdle.ts               # Idle state detection
+├── pages/
+│   └── Index.tsx                # Main experience page (SEO optimized)
+└── index.css                    # Design tokens & global styles
+```
+
+---
+
+## 🎨 Color Palette
+
+| Color | HSL | Usage |
+|-------|-----|-------|
+| Midnight Deep | `hsl(250, 40%, 4%)` | Background base |
+| Glow Teal | `hsl(170, 70%, 55%)` | Primary accents |
+| Glow Rose | `hsl(340, 80%, 70%)` | Secondary accents |
+| Glow Violet | `hsl(270, 60%, 60%)` | Tertiary accents |
+| Aurora Gold | `hsl(45, 90%, 65%)` | Highlight accents |
 
 ---
 
@@ -150,49 +227,6 @@ npm run dev
 
 ---
 
-## 📁 Project Structure
-
-```
-src/
-├── components/
-│   ├── AuroraParticles.tsx      # Idle-triggered floating particles
-│   ├── BackgroundAurora.tsx     # Ambient background effects
-│   ├── FluidDistortion.tsx      # Canvas-based wave lines
-│   ├── FloatingElement.tsx      # Generic float animation wrapper
-│   ├── GlitchText.tsx          # Subtle text glitch effect
-│   ├── GlowingText.tsx         # Stroke-reveal text animation
-│   ├── InkReveal.tsx           # Scroll-triggered ink wash reveal
-│   ├── LightTrailCanvas.tsx    # Cursor light trail painter
-│   ├── LiquidBlobs.tsx         # Organic metaball shapes
-│   ├── LiquidCursor.tsx        # Multi-layered custom cursor
-│   ├── MagneticButton.tsx      # Cursor-attracted buttons
-│   ├── MorphingText.tsx        # Character-level hover effects
-│   ├── ParticleVortex.tsx      # Galaxy spiral particles
-│   ├── RippleEffect.tsx        # Click bloom effect
-│   ├── ScrollWaves.tsx         # Scroll-driven light waves
-│   └── WebGLDistortion.tsx     # Shader-based liquid distortion
-├── hooks/
-│   ├── useMousePosition.ts     # Global mouse tracking
-│   └── useIdle.ts             # Idle state detection
-├── pages/
-│   └── Index.tsx              # Main experience page
-└── index.css                  # Design tokens & global styles
-```
-
----
-
-## 🎨 Color Palette
-
-| Color | HSL | Usage |
-|-------|-----|-------|
-| Midnight Deep | `hsl(250, 40%, 4%)` | Background base |
-| Glow Teal | `hsl(170, 70%, 55%)` | Primary accents |
-| Glow Rose | `hsl(340, 80%, 70%)` | Secondary accents |
-| Glow Violet | `hsl(270, 60%, 60%)` | Tertiary accents |
-| Aurora Gold | `hsl(45, 90%, 65%)` | Highlight accents |
-
----
-
 ## 🌟 Inspiration
 
 This project draws inspiration from:
@@ -214,7 +248,7 @@ MIT License — feel free to use, modify, and distribute.
 </p>
 
 <p align="center">
-  <em>An experiment in presence • 2024</em>
+  <em>An experiment in presence • Dynamic Year: Auto-updated</em>
 </p>
 
 <p align="center">

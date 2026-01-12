@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback, memo } from 'react';
 
 interface Particle {
   x: number;
   y: number;
-  baseX: number;
-  baseY: number;
   size: number;
   hue: number;
   angle: number;
@@ -13,116 +11,105 @@ interface Particle {
   opacity: number;
 }
 
-const ParticleVortex = () => {
+/**
+ * Optimized particle vortex with reduced particle count
+ */
+const ParticleVortex = memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationRef = useRef<number>();
+  const lastTimeRef = useRef(0);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    mouseRef.current = { x: e.clientX, y: e.clientY };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio, 1.5);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
       initParticles();
     };
 
     const initParticles = () => {
       particlesRef.current = [];
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const count = 200;
-      const hues = [170, 200, 270, 300, 340];
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      // Reduced to 80 particles
+      const count = 80;
+      const hues = [170, 270, 340];
 
       for (let i = 0; i < count; i++) {
         const angle = (i / count) * Math.PI * 2 * 3;
-        const radius = 50 + (i / count) * Math.min(canvas.width, canvas.height) * 0.4;
+        const radius = 60 + (i / count) * Math.min(width, height) * 0.35;
         particlesRef.current.push({
           x: centerX + Math.cos(angle) * radius,
           y: centerY + Math.sin(angle) * radius,
-          baseX: centerX,
-          baseY: centerY,
-          size: 1 + Math.random() * 2,
+          size: 1 + Math.random() * 1.5,
           hue: hues[Math.floor(Math.random() * hues.length)],
           angle,
           radius,
-          speed: 0.002 + Math.random() * 0.003,
-          opacity: 0.3 + Math.random() * 0.5,
+          speed: 0.003 + Math.random() * 0.002,
+          opacity: 0.4 + Math.random() * 0.4,
         });
       }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-
     resize();
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    const animate = () => {
-      ctx.fillStyle = 'rgba(10, 10, 26, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const animate = (time: number) => {
+      // Throttle to ~30fps
+      if (time - lastTimeRef.current < 33) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastTimeRef.current = time;
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Fade trail effect
+      ctx.fillStyle = 'rgba(10, 10, 26, 0.08)';
+      ctx.fillRect(0, 0, width, height);
 
-      // Mouse influence on center
-      const mouseInfluence = 0.3;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const mouseInfluence = 0.25;
       const attractX = centerX + (mouseRef.current.x - centerX) * mouseInfluence;
       const attractY = centerY + (mouseRef.current.y - centerY) * mouseInfluence;
 
-      particlesRef.current.forEach((p, i) => {
-        // Spiral motion
+      particlesRef.current.forEach((p) => {
         p.angle += p.speed;
         
-        // Dynamic radius based on mouse proximity
         const dx = mouseRef.current.x - p.x;
         const dy = mouseRef.current.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const pull = Math.max(0, 1 - dist / 200);
-        
-        const dynamicRadius = p.radius * (1 - pull * 0.3);
+        const pull = Math.max(0, 1 - dist / 250);
+        const dynamicRadius = p.radius * (1 - pull * 0.25);
         
         p.x = attractX + Math.cos(p.angle) * dynamicRadius;
         p.y = attractY + Math.sin(p.angle) * dynamicRadius;
 
-        // Breathing opacity
-        const breathe = Math.sin(p.angle * 2) * 0.2 + 0.8;
-        
-        // Draw particle with glow
-        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
-        gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * breathe})`);
-        gradient.addColorStop(0.5, `hsla(${p.hue}, 70%, 60%, ${p.opacity * breathe * 0.5})`);
-        gradient.addColorStop(1, 'transparent');
-
+        // Simple circle instead of gradient for performance
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 70%, 65%, ${p.opacity})`;
         ctx.fill();
-
-        // Connect nearby particles
-        for (let j = i + 1; j < Math.min(i + 5, particlesRef.current.length); j++) {
-          const p2 = particlesRef.current[j];
-          const pdx = p2.x - p.x;
-          const pdy = p2.y - p.y;
-          const pdist = Math.sqrt(pdx * pdx + pdy * pdy);
-          
-          if (pdist < 50) {
-            const alpha = (1 - pdist / 50) * 0.15 * breathe;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `hsla(${(p.hue + p2.hue) / 2}, 60%, 60%, ${alpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
       });
 
       animationRef.current = requestAnimationFrame(animate);
@@ -135,15 +122,18 @@ const ParticleVortex = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-[2]"
-      style={{ mixBlendMode: 'screen', opacity: 0.7 }}
+      style={{ mixBlendMode: 'screen', opacity: 0.6 }}
+      aria-hidden="true"
     />
   );
-};
+});
+
+ParticleVortex.displayName = 'ParticleVortex';
 
 export default ParticleVortex;
