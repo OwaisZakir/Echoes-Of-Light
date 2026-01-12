@@ -35,7 +35,7 @@
 
 This project explores the boundaries between user interface and digital art, creating a mesmerizing experience that feels alive and responds uniquely to each visitor.
 
-> *"Your presence becomes art. Every gesture leaves traces of luminescence."*
+> _"Your presence becomes art. Every gesture leaves traces of luminescence."_
 
 **Created by Owais Zakir** | © 2024-Present
 
@@ -44,19 +44,21 @@ This project explores the boundaries between user interface and digital art, cre
 ## ✨ Features
 
 ### 🎨 Multi-Layer Visual System (Optimized)
-| Layer | Effect | Interaction |
-|-------|--------|-------------|
-| 0 | Deep Space Gradient | Ambient backdrop |
-| 1 | Liquid Glow Effect | Mouse-following glow |
-| 2 | Liquid Metaballs | Organic blob attraction |
-| 3 | Particle Vortex | Galaxy spiral following cursor |
-| 4 | Fluid Wave Lines | Velocity-reactive flow |
-| 5 | Aurora Particles | Idle-triggered emergence |
-| 6 | Light Trails | Cursor painting |
-| 7 | Click Ripples | Tap/click bloom |
-| 8 | Liquid Cursor | Multi-layered glow cursor |
+
+| Layer | Effect              | Interaction                    |
+| ----- | ------------------- | ------------------------------ |
+| 0     | Deep Space Gradient | Ambient backdrop               |
+| 1     | Liquid Glow Effect  | Mouse-following glow           |
+| 2     | Liquid Metaballs    | Organic blob attraction        |
+| 3     | Particle Vortex     | Galaxy spiral following cursor |
+| 4     | Fluid Wave Lines    | Velocity-reactive flow         |
+| 5     | Aurora Particles    | Idle-triggered emergence       |
+| 6     | Light Trails        | Cursor painting                |
+| 7     | Click Ripples       | Tap/click bloom                |
+| 8     | Liquid Cursor       | Multi-layered glow cursor      |
 
 ### 🖱️ Interaction Modes
+
 - **Movement** — Creates flowing light trails and attracts particles
 - **Hover** — Text characters morph and glow individually
 - **Click/Tap** — Sends ripples through the visual layers
@@ -64,6 +66,7 @@ This project explores the boundaries between user interface and digital art, cre
 - **Idle** — Awakens dormant aurora particles
 
 ### ⚡ Performance Optimized
+
 - **No WebGL dependencies** — Pure Canvas 2D API for maximum compatibility
 - **Throttled animations** — 24-30fps target for smooth experience without battery drain
 - **Device pixel ratio optimization** — Capped at 1.5x for performance
@@ -71,6 +74,7 @@ This project explores the boundaries between user interface and digital art, cre
 - **Passive event listeners** — Non-blocking mouse tracking
 
 ### 🔍 Full SEO Implementation
+
 - Semantic HTML5 structure with proper landmarks
 - Dynamic meta tags with react-helmet-async
 - JSON-LD structured data
@@ -104,33 +108,37 @@ npm run build
 ## 🛠️ Tech Stack
 
 ### Core Framework
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **React** | 18.3.1 | UI Component Library |
-| **TypeScript** | 5.x | Type-Safe Development |
-| **Vite** | 5.x | Build Tool & Dev Server |
+
+| Technology     | Version | Purpose                 |
+| -------------- | ------- | ----------------------- |
+| **React**      | 18.3.1  | UI Component Library    |
+| **TypeScript** | 5.x     | Type-Safe Development   |
+| **Vite**       | 5.x     | Build Tool & Dev Server |
 
 ### Styling & Animation
-| Technology | Purpose |
-|------------|---------|
-| **Tailwind CSS** | Utility-First Styling |
-| **Framer Motion** | Declarative Animations |
+
+| Technology        | Purpose                   |
+| ----------------- | ------------------------- |
+| **Tailwind CSS**  | Utility-First Styling     |
+| **Framer Motion** | Declarative Animations    |
 | **Canvas 2D API** | High-Performance Graphics |
-| **Custom CSS** | Glow Effects & Gradients |
+| **Custom CSS**    | Glow Effects & Gradients  |
 
 ### Performance & SEO
-| Technology | Purpose |
-|------------|---------|
-| **react-helmet-async** | Dynamic Meta Tags |
-| **React.memo** | Component Memoization |
+
+| Technology                | Purpose                  |
+| ------------------------- | ------------------------ |
+| **react-helmet-async**    | Dynamic Meta Tags        |
+| **React.memo**            | Component Memoization    |
 | **requestAnimationFrame** | Optimized Animation Loop |
 
 ### UI Components
-| Technology | Purpose |
-|------------|---------|
-| **shadcn/ui** | Accessible Components |
-| **Radix UI** | Headless Primitives |
-| **Lucide React** | Icon System |
+
+| Technology       | Purpose               |
+| ---------------- | --------------------- |
+| **shadcn/ui**    | Accessible Components |
+| **Radix UI**     | Headless Primitives   |
+| **Lucide React** | Icon System           |
 
 ---
 
@@ -140,7 +148,7 @@ npm run build
 
 ```
 ✅ Canvas 2D instead of WebGL — Better compatibility, no shader overhead
-✅ Throttled to 24-30fps — Smooth visuals without battery drain  
+✅ Throttled to 24-30fps — Smooth visuals without battery drain
 ✅ Device Pixel Ratio capped at 1.5x — Prevents excessive canvas size
 ✅ Passive event listeners — Non-blocking scroll & mouse events
 ✅ React.memo on all canvas components — Prevents unnecessary re-renders
@@ -150,12 +158,13 @@ npm run build
 ```
 
 ### Lighthouse Scores Target
-| Metric | Target |
-|--------|--------|
-| Performance | 90+ |
-| Accessibility | 100 |
-| Best Practices | 100 |
-| SEO | 100 |
+
+| Metric         | Target |
+| -------------- | ------ |
+| Performance    | 90+    |
+| Accessibility  | 100    |
+| Best Practices | 100    |
+| SEO            | 100    |
 
 ---
 
@@ -192,19 +201,20 @@ src/
 
 ## 🎨 Color Palette
 
-| Color | HSL | Usage |
-|-------|-----|-------|
-| Midnight Deep | `hsl(250, 40%, 4%)` | Background base |
-| Glow Teal | `hsl(170, 70%, 55%)` | Primary accents |
-| Glow Rose | `hsl(340, 80%, 70%)` | Secondary accents |
-| Glow Violet | `hsl(270, 60%, 60%)` | Tertiary accents |
-| Aurora Gold | `hsl(45, 90%, 65%)` | Highlight accents |
+| Color         | HSL                  | Usage             |
+| ------------- | -------------------- | ----------------- |
+| Midnight Deep | `hsl(250, 40%, 4%)`  | Background base   |
+| Glow Teal     | `hsl(170, 70%, 55%)` | Primary accents   |
+| Glow Rose     | `hsl(340, 80%, 70%)` | Secondary accents |
+| Glow Violet   | `hsl(270, 60%, 60%)` | Tertiary accents  |
+| Aurora Gold   | `hsl(45, 90%, 65%)`  | Highlight accents |
 
 ---
 
 ## 🎮 Interactions
 
 ### Mouse/Touch
+
 ```
 🖱️ Move       → Light trails follow cursor
 🖱️ Hover      → Text morphs, buttons attract
@@ -213,6 +223,7 @@ src/
 ```
 
 ### Scroll
+
 ```
 📜 Scroll Down → Parallax transformations
 📜 Scroll Up   → Reverse parallax
@@ -220,6 +231,7 @@ src/
 ```
 
 ### Idle (3+ seconds)
+
 ```
 ⏸️ Stop Moving → Aurora particles emerge
 ⏸️ Stay Still  → Ambient light breathing
@@ -230,6 +242,7 @@ src/
 ## 🌟 Inspiration
 
 This project draws inspiration from:
+
 - Bioluminescent ocean phenomena
 - Aurora Borealis light shows
 - Liquid light art installations
@@ -252,5 +265,5 @@ MIT License — feel free to use, modify, and distribute.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Made%20with-Lovable-FF69B4?style=for-the-badge" alt="Made with Lovable" />
+  <img src="https://img.shields.io/badge/Made%20with-Eren%20Jeager-FF69B4?style=for-the-badge" alt="Made with Eren Jeager" />
 </p>
